@@ -5,7 +5,7 @@ require 'rapidftr_addons_cpims/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "rapidftr_addons_cpims"
-  gem.version       = RapidftrAddonsCpims::VERSION
+  gem.version       = RapidftrAddonCpims::VERSION
   gem.authors       = ["Faris Mohammed"]
   gem.email         = ["farismosman@gmail.com"]
   gem.description   = %q{TODO: Write a gem description}
@@ -16,4 +16,10 @@ Gem::Specification.new do |gem|
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
+
+  gem.add_runtime_dependency "writeexcel"
+
+  gem.add_development_dependency "rspec"
+  gem.add_development_dependency "pry"
+  gem.add_development_dependency "rake"
 end
