@@ -31,4 +31,12 @@ describe RapidftrAddonCpims::Task do
     names[:MiddleName].should == "Middle"
   end
 
+  it 'should return all names between first and last as middle name' do
+    child_name = "Child With Many Names"
+
+    names = @task.split_child_name(child_name)
+
+    names[:MiddleName].should == "With Many"
+  end
+
 end

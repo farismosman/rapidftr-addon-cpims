@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'rapidftr_addons_cpims/version'
+require 'rapidftr_addon_cpims/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "rapidftr_addons_cpims"
