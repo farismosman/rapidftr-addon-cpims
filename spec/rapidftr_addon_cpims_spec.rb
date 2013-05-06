@@ -2,8 +2,19 @@ require 'spec_helper'
 
 describe RapidftrAddonCpims::Task do
 
+  module RapidftrAddonCpims
+    class Task
+      attr_accessor :row
+      attr_accessor :child
+      attr_accessor :worksheet
+      attr_accessor :workbook
+    end
+  end
+
   before(:each) do
     @task = RapidftrAddonCpims::Task.new
+    @worksheet = WriteExcel.new "temp"
+    @workbook = @worksheet.add_worksheet "temp"
   end
 
   it 'should split child name to first name and last name' do
@@ -49,11 +60,22 @@ describe RapidftrAddonCpims::Task do
 
   it 'should add 1 to row after writing to excel ' do
     @task.row = 0
-    @worksheet.stub!(:write_row).with(0, 0, [nil, nil, nil])
+    @task.worksheet = @worksheet
+    @worksheet.should_receive(:write_row).with(0, 0, [nil, nil, nil])
 
-    @task.map_to_excel(nil, nil, nil)
-
+    @task.map(nil, nil, nil)
     @task.row.should == 1
+  end
+
+  it 'should open a new workbook' do
+    @task.should_receive(:format_filename).with(nil).and_return('temp.xls')
+    WriteExcel.should_receive(:new).with('temp.xls').ordered.and_return(@workbook)
+    @workbook.should_receive(:temp_method).ordered
+    @workbook.should_receive(:close).ordered
+
+    @task.add_workbook(nil) do
+      @workbook.temp_method
+    end
   end
 
 end

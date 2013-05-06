@@ -3,28 +3,22 @@ require 'writeexcel'
 module RapidftrAddonCpims
   class Task
 
-    attr_accessor :row
-
-    def format_filename(record)
-       return "#{record[:id]}.xls"
-    end
-
-    def map_to_excel(cpims_db_name, cpims_view_name, value = nil)
-      @worksheet.write_row(@row, 0, [cpims_db_name, cpims_view_name, value])
-      @row =+ 1
-    end
-
-    def workbook(filename, record)
-      @record = record
-      @workbook = WriteExcel.new(filename)
+    def add_workbook(child_record)
+      @child = child_record
+      @workbook = WriteExcel.new(format_filename(@child))
       yield
       @workbook.close
     end
 
-    def worksheet(sheet_name)
+    def add_worksheet(sheet_name)
       @worksheet = @workbook.add_worksheet(sheet_name)
       @row = 0
       yield
+    end
+
+    def map(cpims_db_name, cpims_view_name, value = nil)
+      @worksheet.write_row(@row, 0, [cpims_db_name, cpims_view_name, value])
+      @row =+ 1
     end
 
     def split_name(name)
@@ -36,6 +30,10 @@ module RapidftrAddonCpims
         names.merge!(:MiddleName => full_name[1..-2].join(" "))
       end
       names
+    end
+
+    def format_filename(record)
+      return "#{record[:id]}.xls"
     end
   end
 end
