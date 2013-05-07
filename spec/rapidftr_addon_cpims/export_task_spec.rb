@@ -20,10 +20,8 @@ describe RapidftrAddonCpims::ExportTask do
   end
 
   it 'should format file name' do
-    record = double(:_id => "b2dfc87")
-
+    record = build_child :_id => "b2dfc87"
     filename = @task.format_filename(record)
-
     filename.should == "b2dfc87.xls"
   end
 
@@ -49,11 +47,24 @@ describe RapidftrAddonCpims::ExportTask do
   end
 
   it 'should add 1 to row after writing to excel ' do
-    @task.row = 0
-    @task.worksheet = @worksheet
-    @worksheet.should_receive(:write_row).with(0, 0, [nil, nil, nil])
+    @task.row, @task.worksheet = 5, @worksheet
+    @worksheet.should_receive(:write_row).with(5, 0, ["a", "b", "c"])
 
-    @task.map(nil, nil, nil)
-    @task.row.should == 1
+    @task.map "a", "b", "c"
+    @task.row.should == 6
+  end
+
+  it 'should skip the row if any parameter is nil or empty' do
+    @task.row, @task.worksheet = 3, @worksheet
+    @worksheet.should_not_receive(:write_row)
+
+    @task.map "a", "b", ""
+    @task.map "a", "b", nil
+    @task.map "a", "", "c"
+    @task.map "a", nil, "c"
+    @task.map "", "b", "c"
+    @task.map nil, "b", "c"
+
+    @task.row.should == 3
   end
 end
