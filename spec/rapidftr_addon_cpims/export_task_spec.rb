@@ -16,7 +16,7 @@ describe RapidftrAddonCpims::ExportTask do
   end
 
   it 'should be an ExportTask addon' do
-    RapidftrAddon::ExportTask.implementations.should include RapidftrAddonCpims::ExportTask
+    RapidftrAddon::ExportMultiTask.implementations.should include RapidftrAddonCpims::ExportTask
   end
 
   it 'should format file name' do

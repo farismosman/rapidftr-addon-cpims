@@ -1,7 +1,7 @@
 require 'writeexcel'
 
 module RapidftrAddonCpims
-  class ExportTask < RapidftrAddon::ExportTask
+  class ExportTask < RapidftrAddon::ExportMultiTask
 
     def export(children)
       children.each do |child|
