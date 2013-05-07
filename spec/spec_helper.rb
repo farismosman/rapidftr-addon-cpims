@@ -1,5 +1,6 @@
 require 'rspec'
-require 'lib/rapidftr_addon_cpims'
+require 'rapidftr_addons'
+require 'rapidftr_addon_cpims'
 require 'factory_girl'
 
 FactoryGirl.find_definitions
