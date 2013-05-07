@@ -16,7 +16,7 @@ describe RapidftrAddonCpims::ExportTask do
   end
 
   it 'should be an ExportTask addon' do
-    RapidftrAddons::ExportTask.implementations.should include RapidftrAddonCpims::ExportTask
+    RapidftrAddon::ExportTask.implementations.should include RapidftrAddonCpims::ExportTask
   end
 
   it 'should split child name to first name and last name' do

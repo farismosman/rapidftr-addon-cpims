@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'rapidftr_addon_cpims/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "rapidftr_addons_cpims"
+  gem.name          = "rapidftr_addon_cpims"
   gem.version       = RapidftrAddonCpims::VERSION
   gem.authors       = ["Faris Mohammed"]
   gem.email         = ["farismosman@gmail.com"]
@@ -20,6 +20,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency "writeexcel"
 
   gem.add_development_dependency "rspec"
-  gem.add_development_dependency "factory_girl"
+  gem.add_development_dependency "factory_girl",     '~> 2.6'
   gem.add_development_dependency "rake"
 end

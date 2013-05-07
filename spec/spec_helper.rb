@@ -1,5 +1,5 @@
 require 'rspec'
-require 'rapidftr_addons'
+require 'rapidftr_addon'
 require 'rapidftr_addon_cpims'
 require 'factory_girl'
 
