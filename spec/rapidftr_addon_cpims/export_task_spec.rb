@@ -19,39 +19,6 @@ describe RapidftrAddonCpims::ExportTask do
     RapidftrAddon::ExportTask.implementations.should include RapidftrAddonCpims::ExportTask
   end
 
-  it 'should split child name to first name and last name' do
-    child_name = "Some Random Name"
-
-    names = @task.split_name(child_name)
-
-    names[:FirstName].should == 'Some'
-    names[:LastName].should == 'Name'
-  end
-
-  it 'should return empty string when middle name does not exist' do
-    child_name = "First Last"
-
-    names = @task.split_name(child_name)
-
-    names[:MiddleName].should == ""
-  end
-
-  it 'should return middle name when middle name exists' do
-    child_name = "First Middle Last"
-
-    names = @task.split_name(child_name)
-
-    names[:MiddleName].should == "Middle"
-  end
-
-  it 'should return all names between first and last as middle name' do
-    child_name = "Child With Many Names"
-
-    names = @task.split_name(child_name)
-
-    names[:MiddleName].should == "With Many"
-  end
-
   it 'should format file name' do
     record = double(:_id => "b2dfc87")
 
