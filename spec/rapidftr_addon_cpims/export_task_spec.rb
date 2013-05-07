@@ -67,4 +67,21 @@ describe RapidftrAddonCpims::ExportTask do
 
     @task.row.should == 3
   end
+
+  it 'should export photo' do
+    child = build_child :current_photo_key => "test"
+    child.stub! :photo_data => "test"
+
+    @task.worksheet, @task.child = @worksheet, child
+    @worksheet.should_receive(:insert_image).with('N5', "test").and_return(true)
+
+    @task.map_photo
+  end
+
+  it 'should not export photo' do
+    child = build_child
+    @task.worksheet, @task.child = @worksheet, child
+    @worksheet.should_not_receive(:insert_image)
+    @task.map_photo
+  end
 end

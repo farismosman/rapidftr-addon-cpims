@@ -5,7 +5,7 @@ module RapidftrAddonCpims
     attr_accessor :child
 
     def initialize(child)
-      @child = (child || {}).stringify_keys
+      @child = (child || {}).stringify_keys!
     end
 
     def present?(attribute)
@@ -58,6 +58,10 @@ module RapidftrAddonCpims
 
     def care_arrangments_middle_name
       middle_name_from care_arrangments_name
+    end
+
+    def photo_data
+      StringIO.new(@child.read_attachment(current_photo_key)) if current_photo_key
     end
 
     def method_missing(method, *args)

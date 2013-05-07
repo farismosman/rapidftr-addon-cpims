@@ -92,4 +92,16 @@ describe RapidftrAddonCpims::Mapper do
     end
   end
 
+  describe '#photo' do
+    it 'should return photo' do
+      mapper = build_child :current_photo_key => "photo"
+      mapper.child.should_receive(:read_attachment).with("photo").and_return("one")
+
+      io = double()
+      StringIO.should_receive(:new).with("one").and_return(io)
+
+      mapper.photo_data.should == io
+    end
+  end
+
 end

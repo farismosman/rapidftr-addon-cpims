@@ -10,6 +10,7 @@ module RapidftrAddonCpims
           add_worksheet("Child Details") do
             map_headers
             map_meta
+            map_photo
 
             map "FirstName", "First Name", @child.first_name
             map "MiddleName", "Middle Name", @child.middle_name
@@ -74,7 +75,7 @@ module RapidftrAddonCpims
     end
 
     def map(cpims_db, cpims_view, value)
-      unless cpims_db.nil? or cpims_db.empty? or cpims_view.nil? or cpims_view.empty?
+      unless cpims_db.nil? or cpims_db.empty? or cpims_view.nil? or cpims_view.empty? or value.nil? or value.empty?
         add_row cpims_db, cpims_view, value
       end
     end
@@ -90,6 +91,12 @@ module RapidftrAddonCpims
       @worksheet.write 5, 11, "FALSE"
     end
 
+    def map_photo
+      if @child.current_photo_key
+        @worksheet.insert_image 'N5', @child.photo_data
+      end
+    end
+
     def add_row(*values)
       @worksheet.write_row @row, 0, values
       @row = @row + 1
@@ -97,6 +104,39 @@ module RapidftrAddonCpims
 
     def format_filename(record)
       return "#{record._id}.xls"
+    end
+  end
+end
+
+# Patch import method in WriteExcel to handle in-memory images
+module Writeexcel
+  class Image
+    def import
+      if @filename.respond_to?(:read)
+        @data = @filename.read
+      else
+        File.open(@filename, "rb") do |fh|
+          raise "Couldn't import #{@filename}: #{$!}" unless fh
+          @data = fh.read
+        end
+      end
+
+      @size = data.bytesize
+      @checksum1 = image_checksum(@data)
+      @checksum2 = @checksum1
+      process
+    end
+  end
+
+  class Worksheet
+    def insert_image(*args)
+      # Check for a cell reference in A1 notation and substitute row and column
+      args = row_col_notation(args)
+      # args = [row, col, filename, x_offset, y_offset, scale_x, scale_y]
+      image = Image.new(self, *args)
+      raise "Insufficient arguments in insert_image()" unless args.size >= 3
+
+      @images << image
     end
   end
 end
