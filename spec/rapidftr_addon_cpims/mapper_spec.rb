@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe RapidftrAddonCpims::Mapper do
+
   before :each do
     @mapper = RapidftrAddonCpims::Mapper.new "name" => "test1 test2 test3 test4"
   end

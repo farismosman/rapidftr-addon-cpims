@@ -13,4 +13,9 @@ FactoryGirl.define do
     name { "Child #{counter.to_s}" }
   end
 
+  factory :mapper, :class => RapidftrAddonCpims::Mapper do
+    association :child
+    name "test1 test2 test3 test4"
+  end
+
 end
