@@ -4,6 +4,10 @@ require 'rapidftr_addon_cpims/mapper'
 module RapidftrAddonCpims
   class ExportTask < RapidftrAddon::ExportTask
 
+    def self.addon_id
+      :cpims
+    end
+
     def export(children)
       children.map do |child|
         add_workbook(child) do
@@ -54,10 +58,6 @@ module RapidftrAddonCpims
           end
         end
       end
-    end
-
-    def self.name
-      :cpims
     end
 
     def add_workbook(child_record)

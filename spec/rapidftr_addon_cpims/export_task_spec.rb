@@ -19,6 +19,10 @@ describe RapidftrAddonCpims::ExportTask do
     RapidftrAddon::ExportTask.implementations.should include RapidftrAddonCpims::ExportTask
   end
 
+  it 'should have proper addon_id' do
+    RapidftrAddonCpims::ExportTask.addon_id.should == :cpims
+  end
+
   it 'should format file name' do
     record = build_child :_id => "b2dfc87"
     filename = @task.format_filename(record)
