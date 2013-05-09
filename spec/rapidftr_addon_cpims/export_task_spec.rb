@@ -16,7 +16,7 @@ describe RapidftrAddonCpims::ExportTask do
   end
 
   it 'should be an ExportTask addon' do
-    RapidftrAddon::ExportMultiTask.implementations.should include RapidftrAddonCpims::ExportTask
+    RapidftrAddon::ExportTask.implementations.should include RapidftrAddonCpims::ExportTask
   end
 
   it 'should format file name' do
@@ -34,6 +34,23 @@ describe RapidftrAddonCpims::ExportTask do
     @task.add_workbook(nil) do
       @workbook.voila_yielded
     end
+  end
+
+  it 'add_workbook should return proper result' do
+    @task.stub! :format_filename => 'temp.xls'
+    File.stub!(:binread).with('temp.xls').and_return('dummy data')
+
+    result = @task.add_workbook(nil) { }
+    result.data.should == 'dummy data'
+    result.filename.should == 'temp.xls'
+  end
+
+  it 'export should return array of results' do
+    @task.should_receive(:add_workbook).with(1).ordered.and_return('one')
+    @task.should_receive(:add_workbook).with(2).ordered.and_return('two')
+    @task.should_receive(:add_workbook).with(3).ordered.and_return('three')
+
+    @task.export([1, 2, 3]).should == [ 'one', 'two', 'three' ]
   end
 
   it 'should create a new worksheet inside the workbook' do

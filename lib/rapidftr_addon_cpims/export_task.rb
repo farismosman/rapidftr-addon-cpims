@@ -2,10 +2,10 @@ require 'writeexcel'
 require 'rapidftr_addon_cpims/mapper'
 
 module RapidftrAddonCpims
-  class ExportTask < RapidftrAddon::ExportMultiTask
+  class ExportTask < RapidftrAddon::ExportTask
 
     def export(children)
-      children.each do |child|
+      children.map do |child|
         add_workbook(child) do
           add_worksheet("Child Details") do
             map_headers
@@ -57,7 +57,7 @@ module RapidftrAddonCpims
     end
 
     def self.name
-      "CPIMS"
+      :cpims
     end
 
     def add_workbook(child_record)
@@ -66,6 +66,8 @@ module RapidftrAddonCpims
       @workbook = WriteExcel.new @filename
       yield
       @workbook.close
+
+      Result.new @filename, File.binread(@filename)
     end
 
     def add_worksheet(sheet_name)
