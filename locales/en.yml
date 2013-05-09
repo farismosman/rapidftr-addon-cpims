@@ -1,0 +1,8 @@
+en:
+  addons:
+    export_task:
+      cpims: # Addon ID
+        name: Export to CPIMS Addon
+        all: Export All to CPIMS
+        one: Export to CPIMS
+        selected: Export Selected to CPIMS

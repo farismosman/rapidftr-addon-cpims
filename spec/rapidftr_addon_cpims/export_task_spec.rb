@@ -105,4 +105,9 @@ describe RapidftrAddonCpims::ExportTask do
     @worksheet.should_not_receive(:insert_image)
     @task.map_photo
   end
+
+  it 'should translate' do
+    puts I18n.load_path
+    I18n.t("addons.export_task.cpims.name").should == "Export to CPIMS Addon"
+  end
 end
