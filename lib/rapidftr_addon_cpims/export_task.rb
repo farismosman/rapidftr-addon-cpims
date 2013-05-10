@@ -1,10 +1,11 @@
+require 'tmpdir'
 require 'writeexcel'
 require 'rapidftr_addon_cpims/mapper'
 
 module RapidftrAddonCpims
   class ExportTask < RapidftrAddon::ExportTask
 
-    def self.addon_id
+    def self.id
       :cpims
     end
 
@@ -62,7 +63,7 @@ module RapidftrAddonCpims
 
     def add_workbook(child_record)
       @child = Mapper.new child_record
-      @filename = format_filename @child
+      @filename = filename_for @child
       @workbook = WriteExcel.new @filename
       yield
       @workbook.close
@@ -104,8 +105,8 @@ module RapidftrAddonCpims
       @row = @row + 1
     end
 
-    def format_filename(record)
-      return "#{record._id}.xls"
+    def filename_for(record)
+      return File.join(self.class.options[:tmp_dir] || Dir.tmpdir, "#{record._id}.xls")
     end
   end
 end
