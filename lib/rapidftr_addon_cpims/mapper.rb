@@ -1,4 +1,5 @@
 require 'active_support/core_ext/hash/keys'
+require 'chronic'
 
 module RapidftrAddonCpims
   class Mapper
@@ -10,6 +11,20 @@ module RapidftrAddonCpims
 
     def present?(attribute)
       self.send(attribute) != nil rescue false
+    end
+
+    def date_of_birth
+      begin
+        dob = Chronic.parse(dob_or_age)
+        dob ||= Chronic.parse(dob_or_age + " ago")
+        dob ? dob.strftime("%m-%d-%Y") : nil
+      rescue
+        nil
+      end
+    end
+
+    def date_of_registration
+      Date.parse(created_at).strftime("%m-%d-%Y") rescue nil
     end
 
     def first_name

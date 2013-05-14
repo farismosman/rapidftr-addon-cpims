@@ -13,22 +13,30 @@ module RapidftrAddonCpims
       children.map do |child|
         add_workbook(child) do
           add_worksheet("Child Details") do
+            map_meta "Child", @child.unique_identifier
             map_headers
-            map_meta
             map_photo
 
+            map "PersonId", "Child ID", @child.unique_identifier
             map "FirstName", "First Name", @child.first_name
             map "MiddleName", "Middle Name", @child.middle_name
             map "LastName", "Last Name", @child.last_name
             map "ChildCategoryNIds", "Protection concerns", @child.protection_status
             map "Sex", "Sex", @child.gender
+            map "DateOfBirth", "Date Of Birth", @child.date_of_birth
             map "OtherName", "Other Name", @child.nick_name
             map "NationalityNIds", "Nationality", @child.nationality
             map "LanguageNIds", "Language", @child.languages
             map "EthnicityNId", "Ethnicity", @child.ethnicity_or_tribe
+
+            map "Agency", "Agency", @child.created_organisation
+            map "SocialWorker", "Social Worker", @child.created_by_full_name
+            map "DatabaseOperator", "Database Operator", @child.created_by
+            map "DateOfRegistration", "Date of Registration", @child.date_of_registration
           end
 
           add_worksheet("Father") do
+            map_meta "Father", "father-#{child.unique_identifier}"
             map_headers
 
             map "FirstName", "First Name", @child.fathers_first_name
@@ -39,6 +47,7 @@ module RapidftrAddonCpims
           end
 
           add_worksheet("Mother") do
+            map_meta "Mother", "mother-#{child.unique_identifier}"
             map_headers
 
             map "FirstName", "First Name", @child.mothers_first_name
@@ -49,6 +58,7 @@ module RapidftrAddonCpims
           end
 
           add_worksheet("PrimaryCaregiver") do
+            map_meta "PrimaryCaregiver", "care-#{child.unique_identifier}"
             map_headers
 
             map "FirstName", "First Name", @child.care_arrangments_first_name
@@ -88,9 +98,10 @@ module RapidftrAddonCpims
       add_row "Photo", "PHOTO"
     end
 
-    def map_meta
-      @worksheet.write 3, 11, "Child"
-      @worksheet.write 4, 11, @child.unique_identifier
+    def map_meta(model, unique_id)
+      @worksheet.write 2, 11, "en"
+      @worksheet.write 3, 11, model
+      @worksheet.write 4, 11, unique_id
       @worksheet.write 5, 11, "FALSE"
     end
 
