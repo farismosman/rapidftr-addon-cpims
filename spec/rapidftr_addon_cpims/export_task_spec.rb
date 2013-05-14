@@ -77,9 +77,9 @@ module RapidftrAddonCpims
 
     it 'should add 1 to row after writing to excel ' do
       @task.row, @task.worksheet = 5, @worksheet
-      @worksheet.should_receive(:write_row).with(5, 0, ["a", "b", "c"])
+      @worksheet.should_receive(:write_row).with(5, 0, ["a", "", "c"])
 
-      @task.map "a", "b", "c"
+      @task.map_field "a", "c"
       @task.row.should == 6
     end
 
@@ -87,12 +87,12 @@ module RapidftrAddonCpims
       @task.row, @task.worksheet = 3, @worksheet
       @worksheet.should_not_receive(:write_row)
 
-      @task.map "a", "b", ""
-      @task.map "a", "b", nil
-      @task.map "a", "", "c"
-      @task.map "a", nil, "c"
-      @task.map "", "b", "c"
-      @task.map nil, "b", "c"
+      @task.map_field "a", ""
+      @task.map_field "a", nil
+      @task.map_field "", "b"
+      @task.map_field nil, "b"
+      @task.map_field nil, nil
+      @task.map_field "", ""
 
       @task.row.should == 3
     end
@@ -116,6 +116,33 @@ module RapidftrAddonCpims
 
     it 'should translate' do
       I18n.t("addons.export_task.cpims.name").should == "Export to CPIMS Addon"
+    end
+
+    it 'should save blobs to appropriate locations' do
+      ExportTask.stub! :blobs => (1..15).to_a
+      @task.worksheet = @worksheet
+
+      @worksheet.should_receive(:write).with(0,  0, 1).ordered
+      @worksheet.should_receive(:write).with(0,  1, 2).ordered
+      @worksheet.should_receive(:write).with(0,  2, 3).ordered
+      @worksheet.should_receive(:write).with(0,  3, 4).ordered
+      @worksheet.should_receive(:write).with(0,  4, 5).ordered
+      @worksheet.should_receive(:write).with(1,  0, 6).ordered
+      @worksheet.should_receive(:write).with(2,  0, 7).ordered
+      @worksheet.should_receive(:write).with(3,  0, 8).ordered
+      @worksheet.should_receive(:write).with(4,  0, 9).ordered
+      @worksheet.should_receive(:write).with(5,  0, 10).ordered
+      @worksheet.should_receive(:write).with(6,  0, 11).ordered
+      @worksheet.should_receive(:write).with(7,  0, 12).ordered
+      @worksheet.should_receive(:write).with(8,  0, 13).ordered
+      @worksheet.should_receive(:write).with(9,  0, 14).ordered
+      @worksheet.should_receive(:write).with(10, 0, 15).ordered
+
+      @task.add_blobs
+    end
+
+    it 'should have 15 line inside gzipped blob' do
+      ExportTask.blobs.count.should == 15
     end
   end
 end
