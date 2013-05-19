@@ -14,59 +14,87 @@ module RapidftrAddonCpims
       children.map do |child|
         add_workbook(child) do
           add_worksheet("Child Details") do
-            map_meta "Child", @child.unique_identifier
+            map_meta "Child", @child[:unique_identifier]
             map_headers
             map_photo
 
-            map_field "PersonId", @child.unique_identifier
-            map_field "FirstName", @child.first_name
-            map_field "MiddleName", @child.middle_name
-            map_field "LastName", @child.last_name
-            map_field "ChildCategoryNIds", @child.protection_status
-            map_field "Sex", @child.gender
-            map_field "DateOfBirth", @child.date_of_birth
-            map_field "OtherName", @child.nick_name
-            map_field "NationalityNIds", @child.nationality
-            map_field "LanguageNIds", @child.languages
-            map_field "EthnicityNId", @child.ethnicity_or_tribe
+            map_field "PersonId", @child[:unique_identifier]
+            map_field "Status", @child[:ftr_status]
+            map_field "UNHCRId", @child[:id_document]
+            map_field "ICRCId", @child[:icrc_ref_no]
+            map_field "FirstName", @child[:name]
+            map_field "LastName", " "
+            map_field "ChildCategoryNIds", @child[:protection_status]
+            map_field "Sex", @child[:gender]
+            map_field "DateOfBirth", @child.parse_date_from(:dob_or_age)
+            map_field "OtherName", @child[:nick_name]
+            map_field "NationalityNIds", @child[:nationality]
+            map_field "LanguageNIds", @child[:languages]
+            map_field "EthnicityNId", @child[:ethnicity_or_tribe]
 
-            map_field "Agency", @child.created_organisation
-            map_field "SocialWorker", @child.created_by_full_name
-            map_field "DatabaseOperator", @child.created_by
-            map_field "DateOfRegistration", @child.date_of_registration
+            map_field "Agency", @child[:created_organisation]
+            map_field "SocialWorker", @child[:created_by_full_name]
+            map_field "DatabaseOperator", @child[:created_by]
+            map_field "DateOfRegistration", @child.date_from(:created_at)
           end
 
           add_worksheet("Father") do
-            map_meta "Father", "father-#{child.unique_identifier}"
+            map_meta "Father", "father-#{child[:unique_identifier]}"
             map_headers
 
-            map_field "FirstName", @child.fathers_first_name
-            map_field "MiddleName", @child.fathers_middle_name
-            map_field "LastName", @child.fathers_last_name
-            map_field "IsAlive", @child.is_father_alive
-            map_field "DeathDetails", @child.father_death_details
+            map_field "FirstName", @child[:fathers_name]
+            map_field "LastName", " "
+            map_field "IsAlive", @child[:is_father_alive]
+            map_field "DeathDetails", @child[:father_death_details]
           end
 
           add_worksheet("Mother") do
-            map_meta "Mother", "mother-#{child.unique_identifier}"
+            map_meta "Mother", "mother-#{child[:unique_identifier]}"
             map_headers
 
-            map_field "FirstName", @child.mothers_first_name
-            map_field "MiddleName", @child.mothers_middle_name
-            map_field "LastName", @child.mothers_last_name
-            map_field "IsAlive", @child.is_mother_alive
-            map_field "DeathDetails", @child.mother_death_details
+            map_field "FirstName", @child[:mothers_name]
+            map_field "LastName", " "
+            map_field "IsAlive", @child[:is_mother_alive]
+            map_field "DeathDetails", @child[:mother_death_details]
           end
 
           add_worksheet("PrimaryCaregiver") do
-            map_meta "PrimaryCaregiver", "care-#{child.unique_identifier}"
+            map_meta "PrimaryCaregiver", "care-#{child[:unique_identifier]}"
             map_headers
 
-            map_field "FirstName", @child.care_arrangments_first_name
-            map_field "MiddleName", @child.care_arrangments_middle_name
-            map_field "LastName", @child.care_arrangments_last_name
-            map_field "RELATIONSHIP", @child.care_arrangements_relationship
-            map_field "CurrentAddress", @child.care_arrangements_address
+            map_field "FirstName", @child[:caregivers_name]
+            map_field "LastName", " "
+            map_field "IsAlive", @child[:is_caregiver_alive]
+          end
+
+          add_worksheet("Separated and Unaccompanied") do
+            add_row "ea421eb0-b229-4dec-885d-e8fd11fc5347", nil, "Separated and Unaccompanied Children Form"
+
+            map_field "d063c4be-903a-47c9-95c1-d5f0c08ea870", @child[:characteristics]
+            map_field "dbb2b258-7cca-401a-be8d-f2cccdcdc8f6", @child.parse_date_from(:separation_date)
+            map_field "4894026b-862f-4fb8-a543-199ed2361f57", @child[:separation_place]
+            map_field "1e757f8f-4f8c-45dc-a5d0-01af153bc426", @child[:wishes_wants_contact]
+            map_field "d0b9521f-406d-4f92-ad67-0192ad64df58", @child[:separation_details]
+
+            map_field "64f4c887-2b59-4a59-a845-d8f2b9f2cad5", @child[:care_arrangements]
+            map_field "72688c03-be30-4a62-8807-fa56d5468a35", @child[:care_arrangments_name]
+            map_field "1d939745-3f0e-4739-83fd-07c29355ea11", @child[:care_arrangements_relationship]
+            map_field "103d8dd4-d693-44d7-873d-d210851ae0ed", @child[:care_arrangements_address]
+
+            map_field "3416132f-cd1e-485b-98ee-6600055a9de0", @child[:wishes_name_1]
+            map_field "d026bc18-1743-48fe-8231-eb9b24a461d7", " "
+            map_field "5959a389-8db3-4313-abcf-773b75bdd8ce", @child[:wishes_address_1]
+            map_field "da12d65d-f47c-4855-bf18-695fcb6f65d8", @child[:wishes_telephone_1]
+
+            map_field "9c99ddea-57e6-43c7-916f-19e9ddfd4cee", @child[:wishes_name_2]
+            map_field "fd3a9d32-8628-4b9f-a47d-ea88194ac321", " "
+            map_field "e0f62110-4751-4690-ad17-eaf8dbac42e9", @child[:wishes_address_2]
+            map_field "934e5728-0fcf-43a8-b3d4-c90bb8cd8cc0", @child[:wishes_telephone_2]
+
+            map_field "acb4a436-420e-4eed-a397-4a813507a32a", @child[:wishes_name_3]
+            map_field "33b8f51d-9473-4b59-9758-4fbe91227435", " "
+            map_field "c8bd79c0-b14f-4480-8601-a3f8fac4ae57", @child[:wishes_address_3]
+            map_field "08aef0c7-54b6-4584-bfc7-401b0f760c89", @child[:wishes_telephone_3]
           end
 
           add_worksheet("Selection_Sheet") do
@@ -95,7 +123,6 @@ module RapidftrAddonCpims
     def map_headers
       add_row nil, "CPD - Registration Form"
       add_row "Photo", "PHOTO"
-      add_row "PersonId", "", "test"
     end
 
     def map_meta(model, unique_id)
@@ -106,7 +133,7 @@ module RapidftrAddonCpims
     end
 
     def map_photo
-      if @child.current_photo_key
+      if @child[:current_photo_key]
         @worksheet.insert_image 'N5', @child.photo_data
       end
     end
@@ -133,7 +160,7 @@ module RapidftrAddonCpims
     end
 
     def filename_for(record)
-      return File.join(self.class.options[:tmp_dir] || Dir.tmpdir, "#{record._id}.xls")
+      return File.join(self.class.options[:tmp_dir] || Dir.tmpdir, "#{record[:_id]}.xls")
     end
 
     def self.blobs
