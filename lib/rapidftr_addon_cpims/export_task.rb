@@ -70,31 +70,31 @@ module RapidftrAddonCpims
           add_worksheet("Separated and Unaccompanied") do
             add_row "ea421eb0-b229-4dec-885d-e8fd11fc5347", nil, "Separated and Unaccompanied Children Form"
 
-            map_field "d063c4be-903a-47c9-95c1-d5f0c08ea870", @child[:characteristics]
-            map_field "dbb2b258-7cca-401a-be8d-f2cccdcdc8f6", @child.parse_date_from(:separation_date)
-            map_field "4894026b-862f-4fb8-a543-199ed2361f57", @child[:separation_place]
-            map_field "1e757f8f-4f8c-45dc-a5d0-01af153bc426", @child[:wishes_wants_contact]
-            map_field "d0b9521f-406d-4f92-ad67-0192ad64df58", @child[:separation_details]
+            map_subsequent_field "d063c4be-903a-47c9-95c1-d5f0c08ea870", @child[:characteristics]
+            map_subsequent_field "dbb2b258-7cca-401a-be8d-f2cccdcdc8f6", @child.parse_date_from(:separation_date)
+            map_subsequent_field "4894026b-862f-4fb8-a543-199ed2361f57", @child[:separation_place]
+            map_subsequent_field "1e757f8f-4f8c-45dc-a5d0-01af153bc426", @child[:wishes_wants_contact]
+            map_subsequent_field "d0b9521f-406d-4f92-ad67-0192ad64df58", @child[:separation_details]
 
-            map_field "64f4c887-2b59-4a59-a845-d8f2b9f2cad5", @child[:care_arrangements]
-            map_field "72688c03-be30-4a62-8807-fa56d5468a35", @child[:care_arrangments_name]
-            map_field "1d939745-3f0e-4739-83fd-07c29355ea11", @child[:care_arrangements_relationship]
-            map_field "103d8dd4-d693-44d7-873d-d210851ae0ed", @child[:care_arrangements_address]
+            map_subsequent_field "64f4c887-2b59-4a59-a845-d8f2b9f2cad5", @child[:care_arrangements]
+            map_subsequent_field "72688c03-be30-4a62-8807-fa56d5468a35", @child[:care_arrangments_name]
+            map_subsequent_field "1d939745-3f0e-4739-83fd-07c29355ea11", @child[:care_arrangements_relationship]
+            map_subsequent_field "103d8dd4-d693-44d7-873d-d210851ae0ed", @child[:care_arrangements_address]
 
-            map_field "3416132f-cd1e-485b-98ee-6600055a9de0", @child[:wishes_name_1]
-            map_field "d026bc18-1743-48fe-8231-eb9b24a461d7", " "
-            map_field "5959a389-8db3-4313-abcf-773b75bdd8ce", @child[:wishes_address_1]
-            map_field "da12d65d-f47c-4855-bf18-695fcb6f65d8", @child[:wishes_telephone_1]
+            map_subsequent_field "3416132f-cd1e-485b-98ee-6600055a9de0", @child[:wishes_name_1]
+            map_subsequent_field "d026bc18-1743-48fe-8231-eb9b24a461d7", " "
+            map_subsequent_field "5959a389-8db3-4313-abcf-773b75bdd8ce", @child[:wishes_address_1]
+            map_subsequent_field "da12d65d-f47c-4855-bf18-695fcb6f65d8", @child[:wishes_telephone_1]
 
-            map_field "9c99ddea-57e6-43c7-916f-19e9ddfd4cee", @child[:wishes_name_2]
-            map_field "fd3a9d32-8628-4b9f-a47d-ea88194ac321", " "
-            map_field "e0f62110-4751-4690-ad17-eaf8dbac42e9", @child[:wishes_address_2]
-            map_field "934e5728-0fcf-43a8-b3d4-c90bb8cd8cc0", @child[:wishes_telephone_2]
+            map_subsequent_field "9c99ddea-57e6-43c7-916f-19e9ddfd4cee", @child[:wishes_name_2]
+            map_subsequent_field "fd3a9d32-8628-4b9f-a47d-ea88194ac321", " "
+            map_subsequent_field "e0f62110-4751-4690-ad17-eaf8dbac42e9", @child[:wishes_address_2]
+            map_subsequent_field "934e5728-0fcf-43a8-b3d4-c90bb8cd8cc0", @child[:wishes_telephone_2]
 
-            map_field "acb4a436-420e-4eed-a397-4a813507a32a", @child[:wishes_name_3]
-            map_field "33b8f51d-9473-4b59-9758-4fbe91227435", " "
-            map_field "c8bd79c0-b14f-4480-8601-a3f8fac4ae57", @child[:wishes_address_3]
-            map_field "08aef0c7-54b6-4584-bfc7-401b0f760c89", @child[:wishes_telephone_3]
+            map_subsequent_field "acb4a436-420e-4eed-a397-4a813507a32a", @child[:wishes_name_3]
+            map_subsequent_field "33b8f51d-9473-4b59-9758-4fbe91227435", " "
+            map_subsequent_field "c8bd79c0-b14f-4480-8601-a3f8fac4ae57", @child[:wishes_address_3]
+            map_subsequent_field "08aef0c7-54b6-4584-bfc7-401b0f760c89", @child[:wishes_telephone_3]
           end
 
           add_worksheet("Selection_Sheet") do
@@ -141,6 +141,13 @@ module RapidftrAddonCpims
     def map_field(column, value)
       unless column.nil? || column.empty? || value.nil? || value.empty?
         add_row column, "", value
+      end
+    end
+
+    def map_subsequent_field(column, value)
+      unless column.nil? || column.empty? || value.nil? || value.empty?
+        add_row column
+        add_row "", "", value
       end
     end
 
