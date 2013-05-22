@@ -97,6 +97,94 @@ module RapidftrAddonCpims
             map_field "08aef0c7-54b6-4584-bfc7-401b0f760c89", @child[:wishes_telephone_3]
           end
 
+          add_worksheet("Follow up Form") do
+            map_field "", "Follow up Form"
+            map_field "", "This form records information gathered during follow up visits to a child. Follow up visits may take place before or after reunification with a caregiver. This form can be completed more than once for each child. "
+            map_field "AgencyNid", "Sender Agency"
+            map_field "SocialWorkerNid", "Social Worker"
+            map_field "UserNid", "Database Operator"
+            map_field "AreaNid", "Area Name"
+            map_field "DateApplied", "Date"
+
+            map_field "", "Outcome of Follow-Up Visit"
+            map_field "", "1. Was the child seen during the visit? *"
+            map_field "", @child[:was_child_seen]
+            map_field "", "2. If not why not?"
+            map_field "", @child[:reason_why]
+
+            map_field "", "Current Care Arrangements"
+            map_field "", "3. Is the child still living with the same caregiver?"
+            map_field "", @child[:child_living_with_same_caregiver]
+            map_field "", "4. If not give reasons for change"
+            map_field "", @child[:reasons_for_change]
+            map_field "", "5. If not, give the type of current care arrangements?"
+            map_field "", @child[:type_of_current_arrangements]
+            map_field "", "6. If not give first name of the caregiver"
+            map_field "", @child[:first_name_of_caregiver]
+            map_field "", "7. Middle name of the caregiver"
+            map_field "", @child[:middle_name_of_caregiver]
+            map_field "", "8. Last name of the caregiver"
+            map_field "", @child[:last_name_of_caregiver]
+            map_field "", "9. If not give Location of new caregiver"
+            map_field "", @child[:location_of_new_caregiver]
+            map_field "", "10. Address of caregiver"
+            map_field "", @child[:address_of_caregiver]
+            map_field "", "11. Telephone contact of caregiver"
+            map_field "", @child[:telephone_contact_of_caregiver]
+            map_field "", "12. Relationship of new caregiver to child"
+            map_field "", @child[:relationship_of_caregiver_to_child]
+            map_field "", "13. Date new care arrangement started"
+            map_field "", @child[:date_new_arrangement_started]
+            
+            map_field "", "Activities"
+            map_field "", "14. Is the child in school or training"
+            map_field "", @child[:is_child_in_school_or_training]
+            map_field "", "15. Name of School"
+            map_field "", @child[:name_of_school]
+            map_field "", "16. If not why not?"
+            map_field "", @child[:why_not_in_school]
+            map_field "", "17. If yes, what type of education?"
+            map_field "", @child[:what_type_of_education]
+            map_field "", "18. If relevant, what level have they achieved"
+            map_field "", @child[:what_have_they_achieved]
+            map_field "", "19. What other activities is the child involved in"
+            map_field "", @child[:other_activities_child_involved_in]
+            map_field "", "20. Start date of training"
+            map_field "", @child[:start_date_of_training]
+            map_field "", "21. Duration of training"
+            map_field "", @child[:duration_of_training]
+
+            map_field "", "Care Assessment"
+            map_field "", "22. Personal Assessment?"
+            map_field "", @child[:personal_assessment]
+            map_field "", "23. Family Assessment?"
+            map_field "", @child[:family_assessment]
+            map_field "", "24. Community Assessment?"
+            map_field "", @child[:community_assessment]
+            map_field "", "25. Education Assessment?"
+            map_field "", @child[:education_assessment]
+            map_field "", "26. Health and Nutrition Assessment?"
+            map_field "", @child[:health_and_nutrition_assessment]
+            map_field "", "27. Economical Assessment?"
+            map_field "", @child[:economical_assessment]
+
+            map_field "", "Further Action"
+            map_field "", "28. Is there a need for further follow-up visit(s)?"
+            map_field "", @child[:any_need_for_follow_up_visit]
+            map_field "", "29. If yes, when do you recommend the next visit to take place?"
+            map_field "", @child[:when_follow_up_visit_should_happen]
+            map_field "", "30. If not, do you recommend that the case be closed?"
+            map_field "", @child[:recommend_that_the_case_be_closed]
+            map_field "", "31. Comments"
+            map_field "", @child[:any_comments]
+
+            map_field "", "Additional Family Details"
+            map_field "", "32. Size of family"
+            map_field "", @child[:size_of_family]
+            map_field "", "31. Type of Follow-Up"
+            map_field "", @child[:type_of_follow_up]
+          end
+
           add_worksheet("Selection_Sheet") do
             add_blobs
           end
