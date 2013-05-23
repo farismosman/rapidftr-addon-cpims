@@ -13,6 +13,7 @@ module RapidftrAddonCpims
     def export(children)
       children.map do |child|
         add_workbook(child) do
+
           add_worksheet("Child Details") do
             map_meta "Child", @child[:unique_identifier]
             map_headers
@@ -98,91 +99,91 @@ module RapidftrAddonCpims
           end
 
           add_worksheet("Follow up Form") do
-            map_blank_field "", "Follow up Form"
-            map_blank_field "", "This form records information gathered during follow up visits to a child. Follow up visits may take place before or after reunification with a caregiver. This form can be completed more than once for each child. "
+            insert_data_from_column 2, "Follow up Form"
+            insert_data_from_column 2, "This form records information gathered during follow up visits to a child. Follow up visits may take place before or after reunification with a caregiver. This form can be completed more than once for each child. "
             map_field "AgencyNid", "Sender Agency"
             map_field "SocialWorkerNid", "Social Worker"
             map_field "UserNid", "Database Operator"
             map_field "AreaNid", "Area Name"
             map_field "DateApplied", "Date"
 
-            map_blank_field "", "Outcome of Follow-Up Visit"
-            map_blank_field "", "1. Was the child seen during the visit? *"
-            map_blank_field "", @child[:was_child_seen]
-            map_blank_field "", "2. If not why not?"
-            map_blank_field "", @child[:reason_why]
+            insert_data_from_column 2, "Outcome of Follow-Up Visit"
+            insert_data_from_column 2, "1. Was the child seen during the visit? *"
+            insert_data_from_column 2, @child[:was_child_seen]
+            insert_data_from_column 2, "2. If not why not?"
+            insert_data_from_column 2, @child[:reason_why]
 
-            map_blank_field "", "Current Care Arrangements"
-            map_blank_field "", "3. Is the child still living with the same caregiver?"
-            map_blank_field "", @child[:child_living_with_same_caregiver]
-            map_blank_field "", "4. If not give reasons for change"
-            map_blank_field "", @child[:reasons_for_change]
-            map_blank_field "", "5. If not, give the type of current care arrangements?"
-            map_blank_field "", @child[:type_of_current_arrangements]
-            map_blank_field "", "6. If not give first name of the caregiver"
-            map_blank_field "", @child[:first_name_of_caregiver]
-            map_blank_field "", "7. Middle name of the caregiver"
-            map_blank_field "", @child[:middle_name_of_caregiver]
-            map_blank_field "", "8. Last name of the caregiver"
-            map_blank_field "", @child[:last_name_of_caregiver]
-            map_blank_field "", "9. If not give Location of new caregiver"
-            map_blank_field "", @child[:location_of_new_caregiver]
-            map_blank_field "", "10. Address of caregiver"
-            map_blank_field "", @child[:address_of_caregiver]
-            map_blank_field "", "11. Telephone contact of caregiver"
-            map_blank_field "", @child[:telephone_contact_of_caregiver]
-            map_blank_field "", "12. Relationship of new caregiver to child"
-            map_blank_field "", @child[:relationship_of_caregiver_to_child]
-            map_blank_field "", "13. Date new care arrangement started"
-            map_blank_field "", @child[:date_new_arrangement_started]
+            insert_data_from_column 2, "Current Care Arrangements"
+            insert_data_from_column 2, "3. Is the child still living with the same caregiver?"
+            insert_data_from_column 2, @child[:child_living_with_same_caregiver]
+            insert_data_from_column 2, "4. If not give reasons for change"
+            insert_data_from_column 2, @child[:reasons_for_change]
+            insert_data_from_column 2, "5. If not, give the type of current care arrangements?"
+            insert_data_from_column 2, @child[:type_of_current_arrangements]
+            insert_data_from_column 2, "6. If not give first name of the caregiver"
+            insert_data_from_column 2, @child[:first_name_of_caregiver]
+            insert_data_from_column 2, "7. Middle name of the caregiver"
+            insert_data_from_column 2, @child[:middle_name_of_caregiver]
+            insert_data_from_column 2, "8. Last name of the caregiver"
+            insert_data_from_column 2, @child[:last_name_of_caregiver]
+            insert_data_from_column 2, "9. If not give Location of new caregiver"
+            insert_data_from_column 2, @child[:location_of_new_caregiver]
+            insert_data_from_column 2, "10. Address of caregiver"
+            insert_data_from_column 2, @child[:address_of_caregiver]
+            insert_data_from_column 2, "11. Telephone contact of caregiver"
+            insert_data_from_column 2, @child[:telephone_contact_of_caregiver]
+            insert_data_from_column 2, "12. Relationship of new caregiver to child"
+            insert_data_from_column 2, @child[:relationship_of_caregiver_to_child]
+            insert_data_from_column 2, "13. Date new care arrangement started"
+            insert_data_from_column 2, @child[:date_new_arrangement_started]
             
-            map_blank_field "", "Activities"
-            map_blank_field "", "14. Is the child in school or training"
-            map_blank_field "", @child[:is_child_in_school_or_training]
-            map_blank_field "", "15. Name of School"
-            map_blank_field "", @child[:name_of_school]
-            map_blank_field "", "16. If not why not?"
-            map_blank_field "", @child[:why_not_in_school]
-            map_blank_field "", "17. If yes, what type of education?"
-            map_blank_field "", @child[:what_type_of_education]
-            map_blank_field "", "18. If relevant, what level have they achieved"
-            map_blank_field "", @child[:what_have_they_achieved]
-            map_blank_field "", "19. What other activities is the child involved in"
-            map_blank_field "", @child[:other_activities_child_involved_in]
-            map_blank_field "", "20. Start date of training"
-            map_blank_field "", @child[:start_date_of_training]
-            map_blank_field "", "21. Duration of training"
-            map_blank_field "", @child[:duration_of_training]
+            insert_data_from_column 2, "Activities"
+            insert_data_from_column 2, "14. Is the child in school or training"
+            insert_data_from_column 2, @child[:is_child_in_school_or_training]
+            insert_data_from_column 2, "15. Name of School"
+            insert_data_from_column 2, @child[:name_of_school]
+            insert_data_from_column 2, "16. If not why not?"
+            insert_data_from_column 2, @child[:why_not_in_school]
+            insert_data_from_column 2, "17. If yes, what type of education?"
+            insert_data_from_column 2, @child[:what_type_of_education]
+            insert_data_from_column 2, "18. If relevant, what level have they achieved"
+            insert_data_from_column 2, @child[:what_have_they_achieved]
+            insert_data_from_column 2, "19. What other activities is the child involved in"
+            insert_data_from_column 2, @child[:other_activities_child_involved_in]
+            insert_data_from_column 2, "20. Start date of training"
+            insert_data_from_column 2, @child[:start_date_of_training]
+            insert_data_from_column 2, "21. Duration of training"
+            insert_data_from_column 2, @child[:duration_of_training]
 
-            map_blank_field "", "Care Assessment"
-            map_blank_field "", "22. Personal Assessment?"
-            map_blank_field "", @child[:personal_assessment]
-            map_blank_field "", "23. Family Assessment?"
-            map_blank_field "", @child[:family_assessment]
-            map_blank_field "", "24. Community Assessment?"
-            map_blank_field "", @child[:community_assessment]
-            map_blank_field "", "25. Education Assessment?"
-            map_blank_field "", @child[:education_assessment]
-            map_blank_field "", "26. Health and Nutrition Assessment?"
-            map_blank_field "", @child[:health_and_nutrition_assessment]
-            map_blank_field "", "27. Economical Assessment?"
-            map_blank_field "", @child[:economical_assessment]
+            insert_data_from_column 2, "Care Assessment"
+            insert_data_from_column 2, "22. Personal Assessment?"
+            insert_data_from_column 2, @child[:personal_assessment]
+            insert_data_from_column 2, "23. Family Assessment?"
+            insert_data_from_column 2, @child[:family_assessment]
+            insert_data_from_column 2, "24. Community Assessment?"
+            insert_data_from_column 2, @child[:community_assessment]
+            insert_data_from_column 2, "25. Education Assessment?"
+            insert_data_from_column 2, @child[:education_assessment]
+            insert_data_from_column 2, "26. Health and Nutrition Assessment?"
+            insert_data_from_column 2, @child[:health_and_nutrition_assessment]
+            insert_data_from_column 2, "27. Economical Assessment?"
+            insert_data_from_column 2, @child[:economical_assessment]
 
-            map_blank_field "", "Further Action"
-            map_blank_field "", "28. Is there a need for further follow-up visit(s)?"
-            map_blank_field "", @child[:any_need_for_follow_up_visit]
-            map_blank_field "", "29. If yes, when do you recommend the next visit to take place?"
-            map_blank_field "", @child[:when_follow_up_visit_should_happen]
-            map_blank_field "", "30. If not, do you recommend that the case be closed?"
-            map_blank_field "", @child[:recommend_that_the_case_be_closed]
-            map_blank_field "", "31. Comments"
-            map_blank_field "", @child[:any_comments]
+            insert_data_from_column 2, "Further Action"
+            insert_data_from_column 2, "28. Is there a need for further follow-up visit(s)?"
+            insert_data_from_column 2, @child[:any_need_for_follow_up_visit]
+            insert_data_from_column 2, "29. If yes, when do you recommend the next visit to take place?"
+            insert_data_from_column 2, @child[:when_follow_up_visit_should_happen]
+            insert_data_from_column 2, "30. If not, do you recommend that the case be closed?"
+            insert_data_from_column 2, @child[:recommend_that_the_case_be_closed]
+            insert_data_from_column 2, "31. Comments"
+            insert_data_from_column 2, @child[:any_comments]
 
-            map_blank_field "", "Additional Family Details"
-            map_blank_field "", "32. Size of family"
-            map_blank_field "", @child[:size_of_family]
-            map_blank_field "", "31. Type of Follow-Up"
-            map_blank_field "", @child[:type_of_follow_up]
+            insert_data_from_column 2, "Additional Family Details"
+            insert_data_from_column 2, "32. Size of family"
+            insert_data_from_column 2, @child[:size_of_family]
+            insert_data_from_column 2, "31. Type of Follow-Up"
+            insert_data_from_column 2, @child[:type_of_follow_up]
           end
 
           add_worksheet("Selection_Sheet") do
@@ -232,10 +233,6 @@ module RapidftrAddonCpims
       end
     end
 
-    def map_blank_field(column, value)      
-      add_row(column, "", value) unless value.nil? || value.empty?
-    end
-
     def map_subsequent_field(column, value)
       unless column.nil? || column.empty? || value.nil? || value.empty?
         add_row column
@@ -244,8 +241,12 @@ module RapidftrAddonCpims
     end
 
     def add_row(*values)
-      @worksheet.write_row @row, 0, values
-      @row = @row + 1
+      insert_data_from_column(0, *values)
+    end
+
+    def insert_data_from_column(column_number, *values)
+      @worksheet.write_row @row, column_number, values.flatten
+      @row = @row + 1      
     end
 
     def add_blobs
