@@ -15,12 +15,23 @@ module RapidftrAddonCpims
 
     def parse_date_from(property)
       begin
-        dob_or_age = self[property]
+        dob_or_age = self[property].gsub('.', '/')
         dob = Chronic.parse(dob_or_age)
         dob ||= Chronic.parse(dob_or_age + " ago")
         dob ? dob.strftime("%m-%d-%Y") : nil
       rescue
         nil
+      end
+    end
+
+    def alive?(property)
+      case self[property]
+      when "Alive"
+        "Yes"
+      when "Dead"
+        "No"
+      else
+        "Unknown"
       end
     end
 

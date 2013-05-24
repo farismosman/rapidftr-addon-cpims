@@ -19,7 +19,7 @@ module RapidftrAddonCpims
             map_photo
 
             map_field "PersonId", @child[:unique_identifier]
-            map_field "Status", @child[:ftr_status]
+            map_field "Status", @child[:protection_status]
             map_field "UNHCRId", @child[:id_document]
             map_field "ICRCId", @child[:icrc_ref_no]
             map_field "FirstName", @child[:name]
@@ -44,7 +44,7 @@ module RapidftrAddonCpims
 
             map_field "FirstName", @child[:fathers_name]
             map_field "LastName", " "
-            map_field "IsAlive", @child[:is_father_alive]
+            map_field "IsAlive", @child.alive?(:is_father_alive)
             map_field "DeathDetails", @child[:father_death_details]
           end
 
@@ -54,7 +54,7 @@ module RapidftrAddonCpims
 
             map_field "FirstName", @child[:mothers_name]
             map_field "LastName", " "
-            map_field "IsAlive", @child[:is_mother_alive]
+            map_field "IsAlive", @child.alive?(:is_mother_alive)
             map_field "DeathDetails", @child[:mother_death_details]
           end
 
@@ -64,7 +64,7 @@ module RapidftrAddonCpims
 
             map_field "FirstName", @child[:caregivers_name]
             map_field "LastName", " "
-            map_field "IsAlive", @child[:is_caregiver_alive]
+            map_field "IsAlive", @child.alive?(:is_caregiver_alive)
           end
 
           add_worksheet("Separated and Unaccompanied") do
@@ -79,7 +79,7 @@ module RapidftrAddonCpims
             map_subsequent_field "64f4c887-2b59-4a59-a845-d8f2b9f2cad5", @child[:care_arrangements]
             map_subsequent_field "72688c03-be30-4a62-8807-fa56d5468a35", @child[:care_arrangments_name]
             map_subsequent_field "1d939745-3f0e-4739-83fd-07c29355ea11", @child[:care_arrangements_relationship]
-            map_subsequent_field "103d8dd4-d693-44d7-873d-d210851ae0ed", @child[:care_arrangements_address]
+            map_subsequent_field "9f0440ff-f2fe-400d-becd-17eaa3b857fa", @child[:care_arrangements_address]
 
             map_subsequent_field "3416132f-cd1e-485b-98ee-6600055a9de0", @child[:wishes_name_1]
             map_subsequent_field "d026bc18-1743-48fe-8231-eb9b24a461d7", " "
