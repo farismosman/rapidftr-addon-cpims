@@ -13,6 +13,14 @@ module RapidftrAddonCpims
       @child[property.to_s]
     end
 
+    def escape_quotes(property)
+      self[property].gsub(/[']/, '\\\\\'').gsub(/["]/, '\\"') if self[property]
+    end
+
+    def remove_quotes(property)
+      self[property].gsub("'", "")
+    end
+
     def parse_date_from(property)
       begin
         dob_or_age = self[property].gsub('.', '/')
@@ -31,7 +39,7 @@ module RapidftrAddonCpims
       when "Dead"
         "No"
       else
-        "Unknown"
+        "Don't Know"
       end
     end
 

@@ -25,8 +25,8 @@ module RapidftrAddonCpims
     end
 
     it 'should format file name' do
-      filename = @task.filename_for build_child :_id => "b2dfc87"
-      File.basename(filename).should == "b2dfc87.xls"
+      filename = @task.filename_for build_child :_id => "efgh5678", :unique_identifier => 'abcd1234'
+      File.basename(filename).should == "abcd1234.xls"
     end
 
     it 'should save under temp dir' do

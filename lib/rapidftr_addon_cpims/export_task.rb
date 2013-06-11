@@ -76,7 +76,7 @@ module RapidftrAddonCpims
             map_subsequent_field "1e757f8f-4f8c-45dc-a5d0-01af153bc426", @child[:wishes_wants_contact]
             map_subsequent_field "d0b9521f-406d-4f92-ad67-0192ad64df58", @child[:separation_details]
 
-            map_subsequent_field "64f4c887-2b59-4a59-a845-d8f2b9f2cad5", @child[:care_arrangements]
+            map_subsequent_field "64f4c887-2b59-4a59-a845-d8f2b9f2cad5", @child.remove_quotes(:care_arrangements)
             map_subsequent_field "72688c03-be30-4a62-8807-fa56d5468a35", @child[:care_arrangments_name]
             map_subsequent_field "1d939745-3f0e-4739-83fd-07c29355ea11", @child[:care_arrangements_relationship]
             map_subsequent_field "9f0440ff-f2fe-400d-becd-17eaa3b857fa", @child[:care_arrangements_address]
@@ -167,7 +167,7 @@ module RapidftrAddonCpims
     end
 
     def filename_for(record)
-      return File.join(self.class.options[:tmp_dir] || Dir.tmpdir, "#{record[:_id]}.xls")
+      return File.join(self.class.options[:tmp_dir] || Dir.tmpdir, "#{record[:unique_identifier]}.xls")
     end
 
     def self.blobs
