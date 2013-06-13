@@ -27,7 +27,7 @@ module RapidftrAddonCpims
             map_field "LastName", " "
             map_field "ChildCategoryNIds", @child[:protection_status]
             map_field "Sex", @child[:gender]
-            map_field "DateOfBirth", @child.parse_date_from(:dob_or_age)
+            map_field "DateOfBirth", @child.parse_date_from(:date_of_birth)
             map_field "OtherName", @child[:nick_name]
             map_field "NationalityNIds", @child[:nationality]
             map_field "LanguageNIds", @child[:languages]
@@ -72,7 +72,7 @@ module RapidftrAddonCpims
             add_row "ea421eb0-b229-4dec-885d-e8fd11fc5347", nil, "Separated and Unaccompanied Children Form"
 
             map_subsequent_field "d063c4be-903a-47c9-95c1-d5f0c08ea870", @child[:characteristics]
-            map_subsequent_field "dbb2b258-7cca-401a-be8d-f2cccdcdc8f6", @child.parse_date_from(:separation_date)
+            map_subsequent_field "dbb2b258-7cca-401a-be8d-f2cccdcdc8f6", @child.parse_date_from(:date_of_separation)
             map_subsequent_field "4894026b-862f-4fb8-a543-199ed2361f57", @child[:separation_place]
             map_subsequent_field "1e757f8f-4f8c-45dc-a5d0-01af153bc426", @child[:wishes_wants_contact]
             map_subsequent_field "d0b9521f-406d-4f92-ad67-0192ad64df58", @child[:separation_details]
