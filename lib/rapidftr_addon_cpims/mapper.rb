@@ -26,7 +26,7 @@ module RapidftrAddonCpims
         dob_or_age = self[property].gsub('.', '/')
         dob = Chronic.parse(dob_or_age)
         dob ||= Chronic.parse(dob_or_age + " ago")
-        dob ? dob.strftime("%m-%d-%Y") : nil
+        dob ? dob.strftime("%d/%m/%Y") : nil
       rescue
         nil
       end
@@ -44,7 +44,7 @@ module RapidftrAddonCpims
     end
 
     def date_from(property)
-      Date.parse(self[property]).strftime("%m-%d-%Y") rescue nil
+      Date.parse(self[property]).strftime("%d/%m/%Y") rescue nil
     end
 
     def first_name_from(property)
