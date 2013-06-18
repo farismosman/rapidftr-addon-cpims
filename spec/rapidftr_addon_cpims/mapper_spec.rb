@@ -28,12 +28,12 @@ describe RapidftrAddonCpims::Mapper do
   describe '#date' do
     it 'should parse date from literal' do
       mapper = build_child :some_date => "the 25th of may 85"
-      mapper.parse_date_from(:some_date).should == "05-25-1985"
+      mapper.parse_date_from(:some_date).should == "25/05/1985"
     end
 
     it 'should parse date from formatted' do
       mapper = build_child :some_date => DateTime.new(1985, 5, 25).to_s
-      mapper.date_from(:some_date).should == "05-25-1985"
+      mapper.date_from(:some_date).should == "25/05/1985"
     end
   end
 
